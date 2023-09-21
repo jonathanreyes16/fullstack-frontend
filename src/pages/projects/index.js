@@ -1,3 +1,3 @@
 export default function projects(){
- return <h1>projects</h1>
+ return <h1>Projects page</h1>
 }
