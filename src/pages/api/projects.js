@@ -1,22 +1,5 @@
-import PageDescription from "@/components/PageDescription";
-import ProjectItem from "@/components/ProjectItem";
-
-export default function ProjectsPage({ projects }) {
-  return (
-    <section>
-      <PageDescription
-        title="Projects"
-        description="Projects I have created"
-      ></PageDescription>
-      {projects.map((project) => (
-        <ProjectItem key={project._id} project={project} />
-      ))}
-    </section>
-  );
-}
-
-export async function getServerSideProps() {
-  let projects = [
+export default function handler(req, res) {
+  res.status(200).json([
     {
       _id: 1,
       name: "Dopefolio",
@@ -33,11 +16,5 @@ export async function getServerSideProps() {
       imageUrl:
         "https://d33wubrfki0l68.cloudfront.net/9199afe42f789dbddb324ed3edd326e080e693c1/28f54/assets/jpeg/wilsonport.jpeg",
     },
-  ];
-
-  return {
-    props: {
-      projects,
-    },
-  };
+  ]);
 }
