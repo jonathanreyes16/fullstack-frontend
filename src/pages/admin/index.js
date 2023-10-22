@@ -1,14 +1,22 @@
 import PageDescription from "@/components/PageDescription";
 import ProjectItem from "@/components/ProjectItem";
+import AddNewProjectModal from "@/components/modals/AddNewProjectModals";
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 
 export default function AdminPage() {
+  const [isNewProjectModalVisible, setIsNewProjectModalVisible] =
+    useState(false);
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
     fetchProjects();
   }, []);
+
+  const handleOnSubmit = (values) => {
+    //console.log(values);
+    setProjects((prev) => [...prev, { ...values, _id: projects.length + 1 }]);
+  };
 
   const fetchProjects = async () => {
     try {
@@ -27,7 +35,11 @@ export default function AdminPage() {
         description="Here you well be able to add and update your projects."
       />
       <div style={{ textAlign: "center", marginBottom: "40px" }}>
-        <Button variant="contained" size="large">
+        <Button
+          variant="contained"
+          size="large"
+          onClick={() => setIsNewProjectModalVisible(true)}
+        >
           Add new Project
         </Button>
       </div>
@@ -35,6 +47,11 @@ export default function AdminPage() {
       {projects.map((project) => (
         <ProjectItem key={project._id} project={project} />
       ))}
+      <AddNewProjectModal
+        open={isNewProjectModalVisible}
+        onClose={() => setIsNewProjectModalVisible(false)}
+        onSubmit={handleOnSubmit}
+      />
     </section>
   );
 }
