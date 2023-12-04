@@ -18,10 +18,8 @@ export default function AdminPage() {
   const handleOnSubmit = (values) => {
     const tempProjects = Array.from(projects);
     if (!!values._id) {
-      const projectIndex = tempProjects.findIndex(
-        (p) => p._id === updatedProject._id
-      );
-      tempProjects[projectIndex] = updatedProject;
+      const projectIndex = tempProjects.findIndex((p) => p._id === values._id);
+      tempProjects[projectIndex] = values;
     } else {
       tempProjects.push({
         ...values,
